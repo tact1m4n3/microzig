@@ -4,22 +4,29 @@
 //! But microzig employs a proxy tactic
 
 const std = @import("std");
-const root = @import("root");
 const builtin = @import("builtin");
+const root = @import("root");
 
 /// The app that is currently built.
 pub const app = @import("app");
-
+/// Provides access to the low level features of the current microchip.
+pub const chip = @import("chip");
 /// Contains build-time generated configuration options for microzig.
 /// Contains a CPU target description, chip, board and cpu information
 /// and so on.
 pub const config = @import("config");
-
 /// Provides access to the low level features of the CPU.
 pub const cpu = @import("cpu");
+/// Contains device-independent drivers for peripherial devices.
+pub const drivers = @import("drivers");
 
-/// Provides access to the low level features of the current microchip.
-pub const chip = @import("chip");
+pub const Allocator = @import("Allocator.zig");
+pub const concurrency = @import("concurrency.zig");
+pub const core = @import("core.zig");
+pub const interrupt = @import("interrupt.zig");
+pub const mmio = @import("mmio.zig");
+pub const sync = @import("sync.zig");
+pub const utilities = @import("utilities.zig");
 
 /// Provides higher level APIs for interacting with hardware
 pub const hal = if (config.has_hal) @import("hal") else void;
@@ -27,17 +34,8 @@ pub const hal = if (config.has_hal) @import("hal") else void;
 /// Provides access to board features or is `void` when no board is present.
 pub const board = if (config.has_board) @import("board") else void;
 
-/// Contains device-independent drivers for peripherial devices.
-pub const drivers = @import("drivers");
-
-pub const core = @import("core.zig");
-pub const concurrency = @import("concurrency.zig");
-pub const interrupt = @import("interrupt.zig");
-pub const mmio = @import("mmio.zig");
-pub const utilities = @import("utilities.zig");
-pub const Allocator = @import("allocator.zig");
-
-/// The microzig default panic handler. Will disable interrupts and loop endlessly.
+/// The microzig default panic handler. Will disable interrupts and loop
+/// endlessly.
 pub const panic = std.debug.FullPanic(struct {
     pub fn panic_fn(message: []const u8, first_trace_address: ?usize) noreturn {
         std.log.err("panic: {s}", .{message});

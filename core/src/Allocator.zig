@@ -25,7 +25,7 @@ high_boundary: usize,
 fallback: ?*Alloc = null,
 
 /// A mutex used to protect access to the allocator.
-mutex: microzig.interrupt.Mutex = .{},
+mutex: microzig.sync.Mutex = .{},
 
 /// Return a []u8 slice that contains the memory located between the
 /// microzig_heap_start and microzig_heap_end.  This is the RAM that

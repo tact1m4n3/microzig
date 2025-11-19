@@ -27,14 +27,6 @@ pub const Mutex = struct {
     // Set to true to enable interrupts when the mutex is locked.
     enable_interrupts: bool = false,
 
-    /// Initialize the mutex.
-    /// Parameters:
-    /// - `params`: Mutex configuration parameters.
-    pub fn init(params: anytype) Mutex {
-        _ = params;
-        return .{};
-    }
-
     /// Try to lock the mutex.
     /// Returns true if the mutex was acquired, false if the mutex
     /// was not acquired.
