@@ -299,6 +299,21 @@ pub const Pin = enum(u6) {
         .RP2350 => *volatile [48]PadsReg,
     };
 
+    pub fn num(n: u9) Pin {
+        switch (chip) {
+            .RP2040 => {
+                if (n > 29)
+                    @panic("the RP2040 only has GPIO 0-29");
+            },
+            .RP2350 => {
+                if (n > 47)
+                    @panic("the RP2350 only has GPIO 0-47");
+            },
+        }
+
+        return @fromBackingInt(@intCast(n));
+    }
+
     pub inline fn get_regs(gpio: Pin) *volatile Regs {
         const regs = @as(RegsArray, @ptrCast(&IO_BANK0.GPIO0_STATUS));
         return &regs[@backingInt(gpio)];

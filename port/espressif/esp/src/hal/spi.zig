@@ -115,6 +115,11 @@ pub const SPI = enum(u2) {
         lsb_first = 1,
     };
 
+    pub fn num(n: u2) SPI {
+        std.debug.assert(n == 2);
+        return @fromBackingInt(n);
+    }
+
     pub fn apply(self: SPI, comptime config: Config) void {
         comptime config.validate() catch @compileError("invalid baud rate");
 

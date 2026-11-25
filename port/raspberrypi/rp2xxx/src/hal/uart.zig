@@ -173,6 +173,10 @@ pub const UART = enum(u1) {
         }
     };
 
+    pub fn num(n: u1) UART {
+        return @fromBackingInt(n);
+    }
+
     pub fn writer(uart: UART, time_frontier: TimeFrontier, buffer: []u8) Writer {
         return .{
             .uart = uart,

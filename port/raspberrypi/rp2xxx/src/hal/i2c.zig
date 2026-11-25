@@ -178,6 +178,10 @@ pub const instance = struct {
 pub const I2C = enum(u1) {
     _,
 
+    pub fn num(instance_number: u1) I2C {
+        return @as(I2C, @fromBackingInt(instance_number));
+    }
+
     pub inline fn get_regs(i2c: I2C) *volatile I2cRegs {
         return switch (@backingInt(i2c)) {
             0 => I2C0,

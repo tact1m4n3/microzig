@@ -17,7 +17,7 @@ fn get_regs(slice: u32) *volatile Regs {
 
 pub const Channel = enum(u1) { a, b };
 
-pub const Slice = enum(u32) {
+pub const Slice = enum(u4) {
     _,
 
     /// Access slice specific registers directly.

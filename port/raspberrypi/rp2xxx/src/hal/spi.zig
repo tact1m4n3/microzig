@@ -83,6 +83,10 @@ pub const ConfigError = error{
 pub const SPI = enum(u1) {
     _,
 
+    pub fn num(instance_number: u1) SPI {
+        return @as(SPI, @fromBackingInt(instance_number));
+    }
+
     pub inline fn get_regs(spi: SPI) *volatile SpiRegs {
         return switch (@backingInt(spi)) {
             0 => SPI0_reg,
